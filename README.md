@@ -1,65 +1,20 @@
-🏦 ATM Simulation using JavaScript
-(Closure-Based Project)
+# ATM Simulator
 
-This project is a clean and professional ATM simulation built using vanilla JavaScript.
-It focuses on core JavaScript fundamentals such as closures, encapsulation, and DOM manipulation to securely manage account balance.
+A browser-based JavaScript learning demo for deposits and withdrawals. The account balance stays private in a closure and is stored as integer paise so decimal transactions remain exact.
 
-The balance is kept private and can only be modified through controlled operations like withdraw and deposit, making the logic secure and reusable.
+## Try it
 
-✨ Key Highlights
+Open `index.html`, or serve the directory using `python -m http.server 8000` and visit http://localhost:8000. Start with ₹10,000 in demo funds, enter an amount, then choose **Deposit** or **Withdraw**. Enter also submits the focused form.
 
-✅ Closure-based private balance
-✅ Reusable and general ATM logic
-✅ Real-time balance updates
-✅ Beginner-friendly and well-structured
-✅ Strong foundation-level JavaScript project
-✅ Suitable for portfolio, exams, and interviews
+- Rejects blank, negative, zero, nonnumeric, oversized, and over-precision amounts.
+- Refuses overdrafts without changing the balance.
+- Shows INR formatting, accessible status messages, and the last ten successful transactions.
+- Adapts to mobile screens and supports keyboard navigation.
 
-🧠 Concepts & Skills Demonstrated
+Reloading resets the demo. There is no real account, server, payment connection, authentication, or persistent transaction history.
 
-📌 JavaScript Closures
-📌 Factory Functions
-📌 Encapsulation
-📌 DOM Manipulation
-📌 Event Handling
-📌 Clean Code Structure
+## Verify
 
-📂 Project Structure
+With Node.js 20 or newer, run `npm test` and `npm run check`. No packages need installing. Tests cover invalid input, decimal precision, overdrafts, overflow, and account isolation. GitHub Actions runs checks before Pages deployment.
 
-📁 atm-closure-js
-├── index.html → ATM user interface
-├── script.js → ATM logic using closures
-└── README.md → Project documentation
-
-⚙️ How It Works
-
-1️⃣ The ATM is created using a factory function.
-2️⃣ The balance variable remains private inside the function scope.
-3️⃣ Only withdraw and deposit methods can update the balance.
-4️⃣ Button clicks trigger these methods through event listeners.
-
-This design ensures secure state management using closures.
-
-🚀 How to Run the Project
-
-Clone or download the repository
-
-Open the index.html file in any modern browser
-
-Enter an amount and perform withdraw or deposit operations
-
-Balance updates instantly on the screen
-
-🎯 Learning Outcomes
-
-✔ Clear understanding of closures and private variables
-✔ Practical use of factory functions
-✔ Real-world application of DOM manipulation
-✔ Strong JavaScript fundamentals for interviews
-✔ Confidence in writing reusable logic
-
-👨‍💻 About the Developer
-
-Vishesh Gupta
-B.Tech (Computer Science & Engineering)
-JavaScript & Web Development Enthusiast
+Built with HTML, CSS, and vanilla JavaScript by Vishesh Gupta.
