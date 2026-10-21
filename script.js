@@ -1,35 +1,35 @@
-let debit = document.getElementById("enter");
-let credit = document.getElementById("creditButton")
-const Vishesh = (function atm(initialBalance){
-    let balance = initialBalance;
-    document.getElementById("Bal").innerText = `Initial Balance: ${balance}`;
+"use strict";
+const account = Account.createAccount();
+const format = paise => new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR" }).format(paise / 100);
+const balance = document.getElementById("Bal");
+const status = document.getElementById("status");
+const history = document.getElementById("transactions");
+balance.textContent = format(account.balance());
 
-    function withdrawal(amt){
-        if(amt > balance){
-            document.getElementById("Bal").innerText = "Not sufficient balance";
-        } else {
-            balance -= amt;
-            document.getElementById("Bal").innerText =`Balance left: ${balance}`;
-        }
-    };
-
-    function CreditAmt(amt){
-        balance+=amt
-        document.getElementById("Bal").innerText =`Balance left: ${balance}`;
-        
+for (const kind of ["deposit", "withdrawal"]) {
+  const form = document.getElementById(`${kind}-form`);
+  const input = form.querySelector("input");
+  form.addEventListener("submit", event => {
+    event.preventDefault();
+    input.removeAttribute("aria-invalid");
+    try {
+      const transaction = kind === "deposit" ? account.deposit(input.value) : account.withdraw(input.value);
+      balance.textContent = format(account.balance());
+      status.textContent = `${kind === "deposit" ? "Deposited" : "Withdrew"} ${format(transaction.amount)} successfully.`;
+      const row = document.createElement("li");
+      const label = document.createElement("span");
+      label.textContent = kind === "deposit" ? "Deposit" : "Withdrawal";
+      const amount = document.createElement("strong");
+      amount.textContent = `${kind === "deposit" ? "+" : "−"}${format(transaction.amount)}`;
+      row.append(label, amount);
+      history.prepend(row);
+      while (history.children.length > 10) history.lastElementChild.remove();
+      document.getElementById("empty-history").hidden = true;
+      input.value = "";
+    } catch (error) {
+      status.textContent = error.message;
+      input.setAttribute("aria-invalid", "true");
     }
-
-    return {
-        withdrawal,
-        CreditAmt
-    }
-})(10000);
-
-debit.addEventListener("click", () => {
-    let amt = Number(document.getElementById("debit").value);
-    Vishesh.withdrawal(amt);
-});
-credit.addEventListener("click",()=>{
-    let amt = Number(document.getElementById("credit").value)
-    Vishesh.CreditAmt(amt)
-})
+    input.focus();
+  });
+}
